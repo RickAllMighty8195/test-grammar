@@ -1,0 +1,21 @@
+{
+  "name": "test-grammar",
+  "version": "0.0.1",
+  "description": "utility for testing textmate grammar files for vscode",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepack": "tsc -b",
+    "test": "nodemon src/test.ts"
+  },
+  "author": "Syler",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@sorg/log": "^1.0.0",
+    "@types/node": "^12.12.9",
+    "vscode-textmate": "^4.3.0"
+  }
+}
