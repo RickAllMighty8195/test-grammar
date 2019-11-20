@@ -1,10 +1,50 @@
 import { TestGrammar } from '.';
 
-const a = new TestGrammar('../syntaxes/sass.language.json', run => {
-  const text = [`.class`, 'margin: 200px'];
-
-  run('THE TEST', text, [
-    [['entity.other.attribute-name.class.css.sass'], ['entity.class']],
-    [['a'], ['meta.property-list.css.sass']]
-  ]);
-});
+new TestGrammar(
+  JSON.stringify({
+    scopeName: 'source.test',
+    name: 'test',
+    patterns: [
+      {
+        begin: '@',
+        end: '$\\n?|(?=\\s|,|\\(|\\)|\\[|>)',
+        name: 'at',
+        patterns: [
+          {
+            match: '.*',
+            name: 'name'
+          }
+        ]
+      },
+      {
+        begin: '\\*\\*',
+        end: '\\*\\*',
+        name: 'bold',
+        patterns: [
+          {
+            match: '[A-z]+',
+            name: 'text'
+          },
+          {
+            match: '\\d+',
+            name: 'number'
+          },
+          {
+            match: ' *',
+            name: 'whitespace'
+          }
+        ]
+      }
+    ]
+  }),
+  { useSourceAsFile: true },
+  run => {
+    run(
+      'test',
+      `@syler
+**text 0**`,
+      `at|at name
+bold|bold text|bold whitespace|bold number|bold`
+    );
+  }
+);
