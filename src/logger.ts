@@ -144,8 +144,8 @@ export const logger = new Logger<{
 
       const cName = converter(data.rawMessages[1], { typeStyles: data.typeStyles });
       length += cName.message.length;
-
-      if (data.rawMessages[0] !== null) {
+      const extended = data.rawMessages[0] !== null;
+      if (extended) {
         const lineData: { token: IToken; line: string } = data.rawMessages[0] as any;
         lineData.line = lineData.line.replace(/ /g, '·');
         // tslint:disable-next-line: prefer-const
@@ -173,8 +173,8 @@ export const logger = new Logger<{
       let output = styler(`${getSpace(length)}\n`, { background: colors.bg }, null);
 
       output += styler(`   [Passed]: `, { background: colors.bg, color: '#0f0' }, null);
-      output += styler(cName, { background: colors.bg, color: '#2c8' }, null);
-      if (data.rawMessages[0] !== null) {
+      output += styler(cName, { background: colors.bg, color: extended ? '#2c8' : '#c2f' }, null);
+      if (extended) {
         output += styler(` Line:`, { background: colors.bg, color: '#02a' }, null);
         // @ts-ignore
         output += styler(cLine, { background: colors.bg, color: '#06f' }, null);

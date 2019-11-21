@@ -1,6 +1,7 @@
 import { Registry, INITIAL, IGrammar } from 'vscode-textmate';
 import { logger, Stats } from './logger';
-import { Options, Text, Expect } from './interfaces';
+import { Options, Text, Expect, Run } from './interfaces';
+import { normalize } from 'path';
 
 export class TestGrammar {
   private registry: Registry;
@@ -24,7 +25,7 @@ export class TestGrammar {
     useSourceAsFile: false
   };
 
-  constructor(source: string, options: Partial<Options> | null, protected initFunc: (run: TestGrammar['run']) => void) {
+  constructor(source: string, options: Partial<Options> | null, protected initFunc: (run: Run) => void) {
     try {
       if (options) {
         this.SetOptions(options);
@@ -33,8 +34,9 @@ export class TestGrammar {
       if (this.options.useSourceAsFile) {
         file = JSON.parse(source);
       } else {
-        file = require(source);
+        file = require(normalize(`${process.cwd()}/${source}`));
       }
+
       this.scope = file.scopeName;
       this.registry = new Registry({
         loadGrammar: () => {
@@ -45,9 +47,14 @@ export class TestGrammar {
       this.Init();
     } catch {
       if (this.options.useSourceAsFile) {
-        logger.Log('invalid', '', 'Source is not valid Json.', source);
+        logger.Log('invalid', 'JSON', 'Source is not valid Json.', source);
       } else {
-        logger.Log('invalid', '', 'Cannot Run test with invalid source file:', source);
+        logger.Log(
+          'invalid',
+          'FILE',
+          'Cannot Run test with invalid source file:',
+          normalize(`${process.cwd()}/${source}`)
+        );
       }
     }
   }
@@ -92,12 +99,22 @@ export class TestGrammar {
         if (val.length === 0) {
           return [[]];
         }
-        return val.split(/\|/).map(v => v.split(/ /));
+        return val.split(/\|/).map(v => {
+          if (v.length === 0) {
+            return [];
+          }
+          return v.split(/ /);
+        });
       });
     }
     return expect;
   }
-  private run(name: string, text: Text, expect: Expect) {
+  private run: Run = (name, text, expect, options?) => {
+    let resetOptions: null | Options = null;
+    if (options !== undefined) {
+      resetOptions = this.options;
+      this.SetOptions(options);
+    }
     const TEXT = this.transformText(text);
     const EXPECT = this.transformExpect(expect);
     if (TEXT.length !== EXPECT.length) {
@@ -120,9 +137,29 @@ export class TestGrammar {
       const lineTokens = this.grammar.tokenizeLine(line, ruleStack);
       let failedLine = false;
       this.stats.lines++;
-      for (let j = 0; j < lineTokens.tokens.length; j++) {
+
+      const max = Math.max(EXPECT[i].length, lineTokens.tokens.length);
+
+      for (let j = 0; j < max; j++) {
         const token = lineTokens.tokens[j];
         this.stats.tokens++;
+
+        if (token === undefined) {
+          logger.Log(
+            'failed',
+            { token: { endIndex: 0, startIndex: 0 }, line } as any,
+            name,
+            i,
+            j,
+            [this.scope, ...EXPECT[i][j]].toString(),
+            'undefined'
+          );
+          this.stats.failedTokens++;
+          failedLine = true;
+          failed = true;
+          continue;
+        }
+
         if (EXPECT[i][j] === undefined) {
           logger.Log('failed', { token, line } as any, name, i, j, 'undefined', token.scopes.toString());
           this.stats.failedTokens++;
@@ -132,7 +169,6 @@ export class TestGrammar {
         }
         const expected = [this.scope, ...EXPECT[i][j]].toString();
         const passed = token.scopes.toString() === expected;
-
         if (passed) {
           if (this.options.logAllTokens) {
             logger.Log('passed', { token, line } as any, name, i, j);
@@ -159,6 +195,9 @@ export class TestGrammar {
       logger.Log('passed', null as any, name);
       this.stats.passedCases++;
     }
+    if (resetOptions !== null) {
+      this.SetOptions(resetOptions);
+    }
     this.stats.cases++;
-  }
+  };
 }

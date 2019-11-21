@@ -15,3 +15,5 @@ export interface Options {
    */
   useSourceAsFile: boolean;
 }
+export type Run = (name: string, text: Text, expect: Expect, options?: Partial<RunOptions>) => void;
+export type RunOptions = Pick<Options, 'logAllTokens'>;

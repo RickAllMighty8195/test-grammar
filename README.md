@@ -57,7 +57,6 @@ bold|bold text|bold whitespace|bold number|bold`
 ```
 
 <span id="DOC_GENERATION_MARKER_0"></span>
-
 # Docs
 
 - **[interfaces](#interfaces)**
@@ -65,8 +64,11 @@ bold|bold text|bold whitespace|bold number|bold`
   - [Expect](#expect)
   - [Text](#text)
   - [Options](#options)
+  - [RunOptions](#runoptions)
+  - [Run](#run)
 
 ### interfaces
+
 
 ##### Expect
 
@@ -84,20 +86,32 @@ type Text = string[] | string;
 
 ```typescript
 interface Options {
-  /**
-   * Also Logs Tokens that passed the test.
-   */
-  logAllTokens: boolean;
-  /**
-   * Calls `process.exit(1)` when tests failed or if there is an error.
-   */
-  exitProcess: boolean;
-  /**
-   * Uses the source parameter as input file, the input string is expected to be valid json textmate grammar.
-   */
-  useSourceAsFile: boolean;
+    /**
+     * Also Logs Tokens that passed the test.
+     */
+    logAllTokens: boolean;
+    /**
+     * Calls `process.exit(1)` when tests failed or if there is an error.
+     */
+    exitProcess: boolean;
+    /**
+     * Uses the source parameter as input file, the input string is expected to be valid json textmate grammar.
+     */
+    useSourceAsFile: boolean;
 }
 ```
 
-_Generated With_ **[ts-doc-gen](https://www.npmjs.com/package/ts-doc-gen)**
+##### RunOptions
+
+```typescript
+type RunOptions = Pick<Options, 'logAllTokens'>;
+```
+
+##### Run
+
+```typescript
+type Run = (name: string, text: Text, expect: Expect, options?: Partial<RunOptions>) => void;
+```
+
+*Generated With* **[ts-doc-gen](https://www.npmjs.com/package/ts-doc-gen)**
 <span id="DOC_GENERATION_MARKER_1"></span>
