@@ -4,8 +4,11 @@
   "description": "utility for testing vscode grammar files",
   "main": "dist/index.js",
   "scripts": {
-    "prepack": "tsc -b && tdg --exclude 'index,logger'",
-    "test": "nodemon src/test.ts"
+    "prepack": "tsc -b && npm run generate",
+    "test": "nodemon src/test.ts",
+    "generate": "npm run generate:docs && npm run generate:badges",
+    "generate:badges": "get-badges",
+    "generate:docs": "tdg --exclude 'index,logger'"
   },
   "files": [
     "dist"
@@ -13,6 +16,7 @@
   "author": "Syler",
   "license": "MIT",
   "devDependencies": {
+    "get-badges": "^0.1.1",
     "nodemon": "^1.19.4",
     "ts-doc-gen": "^0.1.1",
     "tslint": "^5.20.1",
