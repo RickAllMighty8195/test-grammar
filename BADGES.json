@@ -4,5 +4,5 @@
   "repo": "test-grammar",
   "out": "README.md",
   "vscode": "",
-  "badges": ["npmV npm ?color=green", "min bundle", "install package", "githubLastCommit github"]
+  "badges": ["npmV npm ?color=brightGreen", "min bundle", "install package", "githubLastCommit github"]
 }

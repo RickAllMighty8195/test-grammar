@@ -1,7 +1,7 @@
 ## Test grammar
 
 <span id="BADGE_GENERATION_MARKER_0"></span>
- [![circleci]( https://img.shields.io/circleci/build/github/TheRealSyler/test-grammar)](https://app.circleci.com/github/TheRealSyler/test-grammar/pipelines) [![npmV]( https://img.shields.io/npm/v/test-grammar?color=green)](https://www.npmjs.com/package/test-grammar) [![min]( https://img.shields.io/bundlephobia/min/test-grammar)](https://bundlephobia.com/result?p=test-grammar) [![install](https://badgen.net/packagephobia/install/test-grammar)](https://packagephobia.now.sh/result?p=test-grammar) [![githubLastCommit]( https://img.shields.io/github/last-commit/TheRealSyler/test-grammar)](https://github.com/TheRealSyler/test-grammar)
+ [![npmV]( https://img.shields.io/npm/v/test-grammar?color=green)](https://www.npmjs.com/package/test-grammar) [![min]( https://img.shields.io/bundlephobia/min/test-grammar)](https://bundlephobia.com/result?p=test-grammar) [![install](https://badgen.net/packagephobia/install/test-grammar)](https://packagephobia.now.sh/result?p=test-grammar) [![githubLastCommit]( https://img.shields.io/github/last-commit/TheRealSyler/test-grammar)](https://github.com/TheRealSyler/test-grammar)
 <span id="BADGE_GENERATION_MARKER_1"></span>
 
 Utility for testing grammar files, used with vscode.
