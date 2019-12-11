@@ -1,4 +1,4 @@
-import { Logger, LoggerType } from '@sorg/log';
+import { Logger, LoggerType, converter, styler } from '@sorg/log';
 import { IToken } from 'vscode-textmate';
 
 export interface Stats {
@@ -35,7 +35,7 @@ export const logger = new Logger<{
       ['', ' '],
       ['', ' ']
     ],
-    customHandler: (data, converter, styler) => {
+    customHandler: data => {
       let output = '';
       let length = 17;
       for (let i = 0; i < data.rawMessages.length; i++) {
@@ -61,7 +61,7 @@ export const logger = new Logger<{
   failed: {
     styles: [],
     wrappers: [],
-    customHandler: (data, converter, styler) => {
+    customHandler: data => {
       const lines: RESLine[] = [];
       let longestLine = 27;
       const lineData: { token: IToken; line: string } = data.rawMessages[0] as any;
@@ -139,7 +139,7 @@ export const logger = new Logger<{
   passed: {
     styles: [],
     wrappers: [],
-    customHandler: (data, converter, styler) => {
+    customHandler: data => {
       let length = 30;
 
       const cName = converter(data.rawMessages[1], { typeStyles: data.typeStyles });
@@ -197,7 +197,7 @@ export const logger = new Logger<{
   },
   stats: {
     styles: [],
-    customHandler: (data, converter, styler) => {
+    customHandler: data => {
       const stats: Stats = data.rawMessages[0] as any;
 
       const LINES: RESLine[] = [];
