@@ -80,7 +80,7 @@ export const logger = new Logger<{
       longestLine += cToken.message.length;
       const l1t: RESLine = {
         text: '',
-        length: longestLine
+        length: longestLine - 28
       };
 
       l1t.text += styler(`   [Failed]: `, { background: colors.bg, color: '#f00' }, null);
