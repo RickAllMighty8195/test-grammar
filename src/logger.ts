@@ -87,7 +87,7 @@ export const logger = new Logger<{
       l1t.text += styler(cName, { background: colors.bg, color: '#f24' }, null);
       l1t.text += styler(` Line:`, { background: colors.bg, color: '#02a' }, null);
       l1t.text += styler(cLine, { background: colors.bg, color: '#06f' }, null);
-      l1t.text += styler(`Token:`, { background: colors.bg, color: '#02a' }, null);
+      l1t.text += styler(` Token:`, { background: colors.bg, color: '#02a' }, null);
       l1t.text += styler(cToken, { background: colors.bg, color: '#06f' }, null);
       l1t.text += styler('  ', { background: colors.bg }, null);
       lines.push(l1t);
