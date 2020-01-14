@@ -64,10 +64,6 @@ bold|bold text|bold whitespace|bold number|bold`
 
 # Docs
 
-- **[index](#index)**
-
-  - [TestGrammar](#testgrammar)
-
 - **[interfaces](#interfaces)**
 
   - [Expect](#expect)
@@ -75,33 +71,6 @@ bold|bold text|bold whitespace|bold number|bold`
   - [Options](#options)
   - [Run](#run)
   - [RunOptions](#runoptions)
-
-- **[logger](#logger)**
-
-  - [Stats](#stats)
-  - [logger](#logger)
-
-### index
-
-##### TestGrammar
-
-```typescript
-class TestGrammar {
-    protected initFunc: (run: Run) => void;
-    private registry;
-    private grammar;
-    private scope;
-    private stats;
-    private options;
-    constructor(source: string, options: Partial<Options> | null, initFunc: (run: Run) => void);
-    private SetOptions;
-    private getOption;
-    private Init;
-    private transformText;
-    private transformExpect;
-    private run;
-}
-```
 
 ### interfaces
 
@@ -140,36 +109,6 @@ type Run = (name: string, text: Text, expect: Expect, options?: Partial<RunOptio
 
 ```typescript
 type RunOptions = Pick<Options, 'logAllTokens'>;
-```
-
-### logger
-
-##### Stats
-
-```typescript
-interface Stats {
-    cases: number;
-    errors: number;
-    failedCases: number;
-    passedCases: number;
-    tokens: number;
-    failedTokens: number;
-    passedTokens: number;
-    lines: number;
-    failedLines: number;
-    passedLines: number;
-}
-```
-
-##### logger
-
-```typescript
-const logger: Logger<{
-    invalid: LoggerType;
-    failed: LoggerType;
-    passed: LoggerType;
-    stats: LoggerType;
-}
 ```
 
 _Generated with_ **[suf-cli](https://www.npmjs.com/package/suf-cli)**

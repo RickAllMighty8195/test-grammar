@@ -13,14 +13,14 @@
   "tsDoc": {
     "title": "Docs",
     "dir": "dist",
-    "out": "README.md"
+    "out": "README.md",
+    "include": "interfaces"
   },
   "license": {
     "name": "Leonard Grosoli",
     "type": "mit",
     "year": "2020",
     "out": "README.md",
-    "file": "LICENSE",
-    "exclude": "index, logger"
+    "file": "LICENSE"
   }
 }
