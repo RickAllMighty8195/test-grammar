@@ -152,7 +152,6 @@ export const logger = new Logger<{
         var cLine = converter(data.rawMessages[2], { typeStyles: data.typeStyles });
         // tslint:disable-next-line: prefer-const
         var cToken = converter(data.rawMessages[3], { typeStyles: data.typeStyles });
-
         // tslint:disable-next-line: prefer-const
         var lineStart = lineData.line.slice(0, lineData.token.startIndex);
         // tslint:disable-next-line: prefer-const
@@ -189,7 +188,11 @@ export const logger = new Logger<{
         // @ts-ignore
         output += styler(`${lineEnd}   \n`, { color: '#777', background: colors.bg }, null);
       } else {
-        output += styler(`${getSpace(length - (13 + cName.message.length))}\n`, { background: colors.bg }, null);
+        output += styler(
+          `${getSpace(length - (13 + cName.message.length))}\n`,
+          { background: colors.bg },
+          null
+        );
       }
       output += styler(`${getSpace(length)}\n`, { background: colors.bg }, null);
       return output;
