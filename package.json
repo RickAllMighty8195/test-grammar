@@ -24,7 +24,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "@sorg/log": "^1.0.3",
+    "@sorg/log": "^1.1.0",
     "@types/node": "^12.12.9",
     "suf-cli": "^0.1.0",
     "vscode-textmate": "^4.3.0"
