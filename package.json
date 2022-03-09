@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@sorg/log": "^1.0.3",
-    "@types/node": "^12.12.9",
+    "@types/node": "^12.20.46",
     "suf-cli": "^0.1.0",
     "vscode-textmate": "^4.3.0"
   }
